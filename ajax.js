@@ -23,7 +23,7 @@ function ajax(options) {
             }
             //若是使用get方法或JSONP，则手动添加到URL中
             if (type === "get" || dataType === "jsonp") {
-                url += url.indexOf("?") > -1 ? data : "?" + data;
+                url += url.indexOf("?") > -1 ? (url.indexOf("=")>-1 ? "&"+data : data ): "?" + data;
             }
         }
     }
@@ -38,7 +38,7 @@ function ajax(options) {
             document.body.removeChild(script);
             success(data);
         }
-        script.src = url +  (url.indexOf("?") > -1 ? "" : "?") + "callback=" + callback;
+        script.src = url +  (url.indexOf("?") > -1 ? "&" : "?") + "callback=" + callback;
         script.type = "text/javascript";
         document.body.appendChild(script);
         setTime(callback, script);
